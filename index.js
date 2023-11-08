@@ -6,10 +6,15 @@
 // Entrambe le classi dovranno avere un metodo toString() che ritorni una stringa con i dati del film, tipo:
 // Jaws è un film di genere Drama. E’ stato rilasciato nel 1975 ed ha un voto di 8
 // Breaking Bad è una serie tv di genere Drama. La prima stagione è stata rilasciato nel 2008 ed in totale sono state prodotte 5 stagioni. Ha un voto di 9.5
+
 // Tramite la funzione .map(), creare un nuovo array dove per ogni elemento dell’array di oggetti viene creata un istanza della classe Movie o TvSerie in base al type e salvata nel nuovo array.
+
 // Creiamo una funzione che restituisca la media dei voti di tutti i film per un determinato genere. Prevedere un argomento per la lista dei film ed uno per il genere.
+
 // Creiamo una funzione che restituisca la lista di tutti i generi dei film, senza che questi si ripetano.
+
 // Creiamo una funzione che filtri i film in base ad un genere passato come argomento e ne ritorni un array con all’interno il risultato della funzione toString() di ogni film.
+
 // Eseguire tutto il codice da terminale tramite NodeJs e stampiamo nel terminale il risultato delle varie funzioni.
 // BONUS:
 // Rendere le proprietà delle classi private e creare dei setter e dei getter per potervi accedere.
@@ -17,7 +22,7 @@
 
 
 
-const filmESerieTV = [
+const filmSerieTV = [
   {
     title: "Il Padrino",
     year: 1972,
@@ -51,10 +56,10 @@ const filmESerieTV = [
 ];
 
 
+// create Movie class 
 class Movie {
 
   /**
-  * Create a class Movie
   * @params {string} title
   * @params {string|Number} year
   * @params {string} genre
@@ -76,22 +81,66 @@ class Movie {
 
 }
 
-const pippo = new Movie("pippo", "pippo", "pippo", 8, "film", 4)
-console.log(pippo.toString());
 
-
+// create TvSeries extended class 
 class TvSeries extends Movie {
+  /**
+* @params {string} title
+* @params {string|number} year
+* @params {string} genre
+* @params {string|number} rating
+* @params {string} type
+* @params {string|number} seasons
+*/
   constructor(title, year, genre, rating, type, seasons) {
     super(title, year, genre, rating, type)
     this.seasons = seasons;
   }
 
-  toString(){
+  toString() {
 
     return `${this.title} è una serie tv di genere ${this.genre}. La prima stagione è stata rilasciato nel ${this.year} ed in totale sono state prodotte ${this.seasons} stagioni. Ha un voto di ${this.rating}`
 
   }
 }
 
-const pippo2 = new TvSeries("pippo", "pippo", "pippo", 8, "film", 4)
-console.log(pippo2.toString());
+
+// create a list of instances from the correct class
+
+const istancesArray = filmSerieTV.map((movieSerie, index) => {
+
+  const { title, year, genre, rating, type, seasons } = movieSerie
+
+  if (movieSerie.type == "movie") {
+
+    return new Movie(title, year, genre, rating, type)
+
+  } else if (movieSerie.type == "tv") {
+
+    return new TvSeries(title, year, genre, rating, type, seasons)
+
+  }
+})
+
+
+// create a list of generes 
+
+const uniqueGenres = [];
+
+filmSerieTV.forEach(item => {
+
+  const generes = item.genre.split(", ")
+
+  for (let index = 0; index < generes.length; index++) {
+
+    if (!uniqueGenres.includes(generes[index])) {
+  
+      uniqueGenres.push(generes[index]);
+
+    }
+
+  }
+
+});
+
+console.log(uniqueGenres);
