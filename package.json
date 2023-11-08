@@ -1,0 +1,19 @@
+{
+  "name": "es6-movies",
+  "version": "1.0.0",
+  "description": "Exercise on js classes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DamianoCasolari/node-es6-movies.git"
+  },
+  "author": "Damiano Casolari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DamianoCasolari/node-es6-movies/issues"
+  },
+  "homepage": "https://github.com/DamianoCasolari/node-es6-movies#readme"
+}
