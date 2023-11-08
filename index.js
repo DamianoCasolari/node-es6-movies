@@ -1,11 +1,4 @@
 
-
-// BONUS:
-// Rendere le proprietà delle classi private e creare dei setter e dei getter per potervi accedere.
-// Creare una classe Cart dove poter salvare i film che si intende noleggiare. Tramite delle funzioni, poter aggiungere o togliere dei film dal carrello. Creare poi una funzione che stampi il costo totale dei film da noleggiare, dove per ogni film occorre specificare un prezzo fisso di 3.99
-
-
-
 const filmSerieTV = [
   {
     title: "Il Padrino",
@@ -108,6 +101,36 @@ const istancesArray = filmSerieTV.map((movieSerie, index) => {
 
 console.log(istancesArray);
 
+// Creiamo una funzione che restituisca la media dei voti di tutti i film per un determinato genere. Prevedere un argomento per la lista dei film ed uno per il genere.
+
+
+let avarageRatingMovies = ""
+
+function avarageRating(genre) {
+
+  let totalRatings = 0
+  let numberFilms = 0
+
+  filmSerieTV.forEach((movie) => {
+
+    const generesList = movie.genre.split(", ")
+
+    for (let index = 0; index < generesList.length; index++) {
+      if (generesList[index] == genre) {
+        numberFilms++
+        totalRatings += parseFloat(movie.rating)
+        break;
+      }
+    }
+  })
+
+  let avarage = totalRatings / numberFilms
+  avarageRatingMovies = `La media dei ratings dei film di genere ${genre} è di ${avarage}`
+}
+
+avarageRating("Action")
+console.log(avarageRatingMovies);
+
 
 // create a list of generes 
 
@@ -158,4 +181,67 @@ console.log(listMoviesDescription);
 
 
 
-// Eseguire tutto il codice da terminale tramite NodeJs e stampiamo nel terminale il risultato delle varie funzioni.
+
+
+// Make class properties private and create setters and getters to access them.
+
+
+// create Movie class with private proprieties
+class MoviePrivate {
+  #title
+  #year
+  #genre
+  #rating
+  #type
+  /**
+  * @params {string} title
+  * @params {string|Number} year
+  * @params {string} genre
+  * @params {string|Number} rating
+  * @params {string} type
+  */
+  constructor(title, year, genre, rating, type) {
+    this.title = title;
+    this.year = year;
+    this.genre = genre;
+    this.rating = rating;
+    this.type = type;
+  }
+
+
+  toString() {
+    return `${this.title} è un film di genere ${this.genre}. E’ stato rilasciato nel ${this.year} ed ha un voto di ${this.rating}`
+  }
+
+}
+
+
+// create TvSeries extended class with private proprieties
+class TvSeriesPrivate extends MoviePrivate {
+  /**
+* @params {string} title
+* @params {string|number} year
+* @params {string} genre
+* @params {string|number} rating
+* @params {string} type
+* @params {string|number} seasons
+*/
+  constructor(title, year, genre, rating, type, seasons) {
+    super(title, year, genre, rating, type)
+    this.seasons = seasons;
+  }
+
+  toString() {
+
+    return `${this.title} è una serie tv di genere ${this.genre}. La prima stagione è stata rilasciato nel ${this.year} ed in totale sono state prodotte ${this.seasons} stagioni. Ha un voto di ${this.rating}`
+
+  }
+}
+
+
+
+
+// Creare una classe Cart dove poter salvare i film che si intende noleggiare. Tramite delle funzioni, poter aggiungere o togliere dei film dal carrello. Creare poi una funzione che stampi il costo totale dei film da noleggiare, dove per ogni film occorre specificare un prezzo fisso di 3.99
+
+
+
