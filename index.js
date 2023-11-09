@@ -37,11 +37,11 @@ const filmSerieTV = [
 class Movie {
 
   /**
-  * @params {string} title
-  * @params {string|Number} year
-  * @params {string} genre
-  * @params {string|Number} rating
-  * @params {string} type
+  * @param {string} title
+  * @param {string|number} year
+  * @param {string} genre
+  * @param {string|number} rating
+  * @param {string} type
   */
   constructor(title, year, genre, rating, type) {
     this.title = title;
@@ -62,12 +62,12 @@ class Movie {
 // create TvSeries extended class 
 class TvSeries extends Movie {
   /**
-* @params {string} title
-* @params {string|number} year
-* @params {string} genre
-* @params {string|number} rating
-* @params {string} type
-* @params {string|number} seasons
+* @param {string} title
+* @param {string|number} year
+* @param {string} genre
+* @param {string|number} rating
+* @param {string} type
+* @param {string|number} seasons
 */
   constructor(title, year, genre, rating, type, seasons) {
     super(title, year, genre, rating, type)
@@ -101,10 +101,10 @@ const istancesArray = filmSerieTV.map((movieSerie, index) => {
 
 console.log(istancesArray);
 
-// Creiamo una funzione che restituisca la media dei voti di tutti i film per un determinato genere. Prevedere un argomento per la lista dei film ed uno per il genere.
 
 
-let avarageRatingMovies = ""
+// Let's create a function that returns the average ratings of all films for a given genre. Provide a topic for the list of films and one for the genre.
+
 
 function avarageRating(genre) {
 
@@ -112,6 +112,7 @@ function avarageRating(genre) {
   let numberFilms = 0
 
   filmSerieTV.forEach((movie) => {
+
 
     const generesList = movie.genre.split(", ")
 
@@ -123,13 +124,16 @@ function avarageRating(genre) {
       }
     }
   })
-
+if(numberFilms > 0) {
   let avarage = totalRatings / numberFilms
-  avarageRatingMovies = `La media dei ratings dei film di genere ${genre} è di ${avarage}`
-}
+  return console.log(`La media dei ratings dei film di genere ${genre} è di ${avarage}`); 
 
-avarageRating("Action")
-console.log(avarageRatingMovies);
+} else {
+  return console.log(`Non abbiamo film di genere ${genre}`); 
+ 
+}}
+
+avarageRating("ciccio")
 
 
 // create a list of generes 
@@ -174,12 +178,10 @@ function filterFilm(genre) {
       }
     }
   })
+ return  console.log(listMoviesDescription);
 }
 
 filterFilm("Sci-Fi")
-console.log(listMoviesDescription);
-
-
 
 
 
@@ -194,41 +196,118 @@ class MoviePrivate {
   #rating
   #type
   /**
-  * @params {string} title
-  * @params {string|Number} year
-  * @params {string} genre
-  * @params {string|Number} rating
-  * @params {string} type
+  * @param {string} title
+  * @param {string|number} year
+  * @param {string} genre
+  * @param {string|number} rating
+  * @param {string} type
   */
   constructor(title, year, genre, rating, type) {
-    this.title = title;
-    this.year = year;
-    this.genre = genre;
-    this.rating = rating;
-    this.type = type;
+    this.#title = title;
+    this.#year = year;
+    this.#genre = genre;
+    this.#rating = rating;
+    this.#type = type;
   }
-
+ 
 
   toString() {
     return `${this.title} è un film di genere ${this.genre}. E’ stato rilasciato nel ${this.year} ed ha un voto di ${this.rating}`
   }
 
+
+// Get function 
+
+  get title(){
+    return this.#title 
+  }
+  get year(){
+    return this.#year 
+  }
+  get genre(){
+    return this.#genre 
+  }
+  get rating(){
+    return this.#rating 
+  }
+  get type(){
+    return this.#type 
+  }
+
+  // Set function 
+
+  set title(value) {
+    if (!value || !value.trim()) {
+      throw new Error("Il titolo è obbligatoria");
+    }
+
+    this.#title = value.toLowerCase();
+  }
+  set year(value) {
+    if (!value || !value.trim()) {
+      throw new Error("'anno è obbligatoria");
+    }
+
+    this.#year = value.toLowerCase();
+  }
+  set genre(value) {
+    if (!value || !value.trim()) {
+      throw new Error("Il genere è obbligatoria");
+    }
+
+    this.#genre = value.toLowerCase();
+  }
+  set rating(value) {
+    if (!value || !value.trim()) {
+      throw new Error("il rating è obbligatoria");
+    }
+
+    this.#rating = value.toLowerCase();
+  }
+  set type(value) {
+    if (!value || !value.trim()) {
+      throw new Error("il type è obbligatoria");
+    }
+
+    this.#type = value.toLowerCase();
+  }
+
+
+
 }
+
+const movieExample = new MoviePrivate("Matrix","1999","action", 9, "movie")
+movieExample.title = "Matrix 2"
+console.log(movieExample.title);
+
+
+
+
 
 
 // create TvSeries extended class with private proprieties
 class TvSeriesPrivate extends MoviePrivate {
   /**
-* @params {string} title
-* @params {string|number} year
-* @params {string} genre
-* @params {string|number} rating
-* @params {string} type
-* @params {string|number} seasons
+* @param {string} title
+* @param {string|number} year
+* @param {string} genre
+* @param {string|number} rating
+* @param {string} type
+* @param {string|number} seasons
 */
+#seasons;
   constructor(title, year, genre, rating, type, seasons) {
     super(title, year, genre, rating, type)
-    this.seasons = seasons;
+    this.#seasons = seasons;
+  }
+
+
+  get seasons(){
+    return this.#seasons
+  }
+
+  set seasons(value) {
+    this.#seasons = value.toLowerCase()
   }
 
   toString() {
@@ -237,6 +316,13 @@ class TvSeriesPrivate extends MoviePrivate {
 
   }
 }
+
+const movieExampleTv = new TvSeriesPrivate("Matrix","1999","action", 9, "movie", 9)
+movieExampleTv.seasons = "2"
+console.log(movieExampleTv.seasons);
+
+
+
 
 
 
